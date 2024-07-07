@@ -4,7 +4,7 @@ import java.text.DecimalFormat;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
-public class Account implements Serializable {
+public class Account {
 	// variables
 	private int customerNumber;
 	private int pinNumber;
