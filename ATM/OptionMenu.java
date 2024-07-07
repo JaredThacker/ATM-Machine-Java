@@ -1,4 +1,9 @@
+import java.io.File;
 import java.io.IOException;
+import java.nio.file.FileSystem;
+import java.nio.file.FileSystems;
+import java.nio.file.Files;
+import java.nio.file.PathMatcher;
 import java.text.DecimalFormat;
 import java.util.HashMap;
 import java.util.InputMismatchException;
@@ -47,23 +52,31 @@ public class OptionMenu {
 				System.out.println("\nSelect the account you want to access: ");
 				System.out.println(" Type 1 - Checking Account");
 				System.out.println(" Type 2 - Savings Account");
-				System.out.println(" Type 3 - Exit");
+				System.out.println(" Type 3 - Show Account Balances");
+				System.out.println(" Type 4 - View Transaction Log");
+				System.out.println(" Type 5 - Exit");
 				System.out.print("\nChoice: ");
 
 				int selection = menuInput.nextInt();
 
 				switch (selection) {
-				case 1:
-					getChecking(acc);
-					break;
-				case 2:
-					getSaving(acc);
-					break;
-				case 3:
-					end = true;
-					break;
-				default:
-					System.out.println("\nInvalid Choice.");
+					case 1:
+						getChecking(acc);
+						break;
+					case 2:
+						getSaving(acc);
+						break;
+					case 3:
+						acc.showBalances();
+						break;
+					case 4:
+						acc.viewTransactionLogs();
+						break;
+					case 5:
+						end = true;
+						break;
+					default:
+						System.out.println("\nInvalid Choice.");
 				}
 			} catch (InputMismatchException e) {
 				System.out.println("\nInvalid Choice.");
@@ -130,7 +143,7 @@ public class OptionMenu {
 					System.out.println("\nSavings Account Balance: " + moneyFormat.format(acc.getSavingBalance()));
 					break;
 				case 2:
-					acc.getsavingWithdrawInput();
+					acc.getSavingWithdrawInput();
 					break;
 				case 3:
 					acc.getSavingDepositInput();
@@ -182,14 +195,13 @@ public class OptionMenu {
 	}
 
 	public void mainMenu() throws IOException {
-		data.put(952141, new Account(952141, 191904, 1000, 5000));
-		data.put(123, new Account(123, 123, 20000, 50000));
 		boolean end = false;
 		while (!end) {
 			try {
 				System.out.println("\n Type 1 - Login");
 				System.out.println(" Type 2 - Create Account");
 				System.out.print("\nChoice: ");
+				getAccounts();
 				int choice = menuInput.nextInt();
 				switch (choice) {
 				case 1:
@@ -211,5 +223,24 @@ public class OptionMenu {
 		System.out.println("\nThank You for using this ATM.\n");
 		menuInput.close();
 		System.exit(0);
+	}
+
+	public void getAccounts() {
+		File accounts = new File("accounts");
+		File[] listFiles = accounts.listFiles();
+		for (File eachFile : listFiles) {
+			try {
+				String contents = Files.readString(eachFile.toPath());
+				String[] splitContents = contents.split(", ");
+				double checkingBalance = Double.parseDouble(splitContents[0]);
+				double savingBalance = Double.parseDouble(splitContents[1]);
+				int customerNumber = Integer.parseInt(splitContents[2]);
+				int pinNumber = Integer.parseInt(splitContents[3]);
+				this.data.put(customerNumber, new Account(customerNumber, pinNumber, checkingBalance, savingBalance));
+			} catch (IOException exception) {
+				System.out.println("Failed to read file");
+				System.out.println(exception.getMessage());
+			}
+		}
 	}
 }

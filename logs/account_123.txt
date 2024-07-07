@@ -1,0 +1,10 @@
+2024-07-07 14:38:53.917: Deposit, Checking, 10000.00 
+2024-07-07 14:39:01.419: Withdraw, Checking, 20000.00 
+2024-07-07 14:39:11.251: Deposit, Savings, 50000.00 
+2024-07-07 14:39:18.259: Transfer, Savings, 50000.00 
+2024-07-07 15:29:54.223: Withdraw, Checking, 30000.00 
+2024-07-07 15:30:09.759: Deposit, Savings, 50000.00 
+2024-07-07 15:59:38.284: Transfer, Checking, 25000.00 
+2024-07-07 16:24:03.031: Deposit, Checking, 5000.00 
+2024-07-07 16:24:08.844: Withdraw, Checking, 5000.00 
+2024-07-07 16:24:14.418: Transfer, Checking, 5000.00 
