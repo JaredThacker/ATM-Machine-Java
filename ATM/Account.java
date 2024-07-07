@@ -5,7 +5,7 @@ import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Account {
-	// variables
+
 	private int customerNumber;
 	private int pinNumber;
 	private double checkingBalance = 0;
@@ -157,7 +157,7 @@ public class Account {
 		while (!end) {
 			try {
 				System.out.println("\nCurrent Checking Account Balance: " + moneyFormat.format(checkingBalance));
-				System.out.print("\nAmount you want to deposit from Checking Account: ");
+				System.out.print("\nAmount you want to deposit into Checking Account: ");
 				double amount = input.nextDouble();
 				if ((checkingBalance + amount) >= 0 && amount >= 0) {
 					calcCheckingDeposit(amount);
